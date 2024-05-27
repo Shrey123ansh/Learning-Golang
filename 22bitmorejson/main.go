@@ -6,17 +6,17 @@ import (
 )
 
 type course struct {
-	Name     string `json:"coursename"`
+	Name     string `json:"coursename"` //naming of key
 	Price    int
 	Platform string   `json:"website"`
-	Password string   `json:"-"`
-	Tags     []string `json:"tags,omitempty"`
+	Password string   `json:"-"`              //not to show(dont want to be reflected)
+	Tags     []string `json:"tags,omitempty"` //if empty then not to reflect
 }
 
 func main() {
 	fmt.Println("Welcome to JSON video")
-	EncodeJson()
-	// DecodeJson()
+	// EncodeJson()
+	DecodeJson()
 }
 
 func EncodeJson() {
@@ -29,11 +29,13 @@ func EncodeJson() {
 
 	//package this data as JSON data
 
+	// finalJson, err := json.Marshal(lcoCourses)
+	//OR
 	finalJson, err := json.MarshalIndent(lcoCourses, "", "\t")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", finalJson)
+	fmt.Printf("%s\n", finalJson) //%s for json
 
 }
 
@@ -54,7 +56,7 @@ func DecodeJson() {
 	if checkValid {
 		fmt.Println("JSON was valid")
 		json.Unmarshal(jsonDataFromWeb, &lcoCourse)
-		fmt.Printf("%#v\n", lcoCourse)
+		fmt.Printf("%#v\n", lcoCourse) // special %#v for handle json of data into decode form
 	} else {
 		fmt.Println("JSON WAS NOT VALID")
 	}
